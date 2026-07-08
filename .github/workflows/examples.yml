@@ -172,7 +172,7 @@ jobs:
             echo "No firmware archives found"
             exit 1
           fi
-          if ! gh release view "$TAG" >/dev/null 2>&1; then
-            gh release create "$TAG" --title "$TAG" --notes "Source-built firmware archives with combined BIN images."
+          if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes "Source-built firmware archives with combined BIN images."
           fi
-          gh release upload "$TAG" "${archives[@]}" --clobber
+          gh release upload "$TAG" --repo "$GITHUB_REPOSITORY" "${archives[@]}" --clobber
